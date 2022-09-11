@@ -19,7 +19,7 @@ const submissions = new SubmissionStream(client, {
 });
 
 submissions.on('item', (item) => {
-  if (item.title.includes('Paypal')) {
-    console.log(item.title);
+  if (item.title.includes('65') || item.title.includes('75')) {
+    console.log('[' + item.link_flair_text + '] ' + item.title);
   }
 });
