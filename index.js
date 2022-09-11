@@ -2,6 +2,15 @@ import { SubmissionStream } from 'snoostorm';
 import Snoowrap from 'snoowrap';
 import * as dotenv from 'dotenv';
 
+/** Variables for filter */
+/**   'flair' is REQUIRED (Buying/Selling/Trading/etc.) */
+/**   I do suggest putting in a country filter (US/EU/PH/etc.) */
+/**   Keywords A and B are optional, leave keywords blank string to not use filter */
+const country = 'US';
+const flair = 'Selling';
+const keywordA = '';
+const keywordB = '';
+
 /** Initialize dotenv */
 dotenv.config();
 
@@ -21,10 +30,13 @@ const submissions = new SubmissionStream(client, {
   pollTime: 30000
 });
 
-/** Logs submission titles that have 65 or 75 in the title to the console */
-/**   65 or 75 specifically for keyboards with the respective layouts */
+/** Logs submission titles based on the given filter variables above **/
 submissions.on('item', (item) => {
-  if (item.title.includes('65') || item.title.includes('75')) {
+  if (
+    (item.title.includes(keywordA) || item.title.includes(keywordB)) &&
+    item.title.startsWith('[' + country) &&
+    item.link_flair_text === flair
+  ) {
     console.log('');
     console.log('[' + item.link_flair_text + '] ' + item.title);
   }
