@@ -4,12 +4,14 @@ The Reddit Market Bot is a simple bot that listens to new posts on a specified s
 
 This was made for personal use as I am currently looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket).
 
+Made with [nodeJS](https://nodejs.org/en/), [snoowrap](https://www.npmjs.com/package/snoowrap), and [snoostorm](https://www.npmjs.com/package/snoostorm).
+
 ## Usage
 
 ### Requirements
 
 - NodeJS
-- The money to buy stuff on r/mechmarket :(
+- Git
 
 ### Installation
 
