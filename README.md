@@ -36,7 +36,7 @@ REDDIT_USER=***
 REDDIT_PASS=***
 ```
 
-5. Fill in the necessary values, for instructions on how to get the values, see [example](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
+5. Fill in the necessary values. For instructions on how to get the values, see [example](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
 6. Update filter if needed in code, then run the app with `node index.js` and you should be good to go!
 
 ## Future Plans
