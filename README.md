@@ -1,21 +1,17 @@
 # Reddit Market Bot
 
----
-
 The Reddit Market Bot is a simple bot that listens to new posts on a specified subreddit and logs the new posts to the console.
 
 This was made for personal use as I am currently looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket).
 
-# Usage
+## Usage
 
----
-
-## Requirements
+### Requirements
 
 - NodeJS
 - The money to buy stuff on r/mechmarket :(
 
-## Installation
+### Installation
 
 1. Clone the repository
 2. Navigate to the folder
@@ -40,7 +36,5 @@ REDDIT_PASS=***
 6. Update filter if needed in code, then run the app with `node index.js` and you should be good to go!
 
 ## Future Plans
-
----
 
 If It turns out that I use this bot a lot, I might turn this into an API with ExpressJS and create a React Native frontend for it, but for now, console logging will do for my needs.
