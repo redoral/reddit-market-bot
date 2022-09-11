@@ -25,6 +25,7 @@ const submissions = new SubmissionStream(client, {
 /**   65 or 75 specifically for keyboards with the respective layouts */
 submissions.on('item', (item) => {
   if (item.title.includes('65') || item.title.includes('75')) {
+    console.log('');
     console.log('[' + item.link_flair_text + '] ' + item.title);
   }
 });

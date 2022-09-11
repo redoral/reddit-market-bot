@@ -1,5 +1,7 @@
 # Reddit Market Bot
 
+![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?style=for-the-badge&logo=Reddit&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+
 The Reddit Market Bot is a simple bot that listens to new posts on a specified subreddit and logs the new posts to the console.
 
 This was made for personal use as I am currently looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket).
@@ -19,7 +21,7 @@ Made with [nodeJS](https://nodejs.org/en/), [snoowrap](https://www.npmjs.com/pac
 2. Navigate to the folder
 3. Run `npm install`
 
-```Shell
+```sh
 git clone https://github.com/redoral/reddit-market-bot.git
 cd reddit-market-bot
 npm install
@@ -27,7 +29,7 @@ npm install
 
 4. Create a .env file with the following parameters:
 
-```javascript
+```js
 CLIENT_ID=***
 CLIENT_SECRET=***
 REDDIT_USER=***
