@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 /**   I do suggest putting in a country filter (US/EU/etc.) */
 /**   Both Keywords are optional, use when looking for a specific item (ex: 65) */
 const country = 'US';
-const keyword = 'qk65';
+const keyword = '65';
 const keywordOpt = '[W] Paypal';
 
 /** Initialize dotenv */
@@ -34,18 +34,22 @@ console.log('***************************');
 const submissions = new SubmissionStream(client, {
   subreddit: 'mechmarket',
   limit: 10,
-  pollTime: 30000
+  pollTime: 2000
 });
 
 /** Logs submission titles based on the given filter variables **/
 submissions.on('item', (item) => {
   const postTitle = item.title.toLowerCase();
 
-  if (
-    item.title.startsWith('[' + country) &&
-    (postTitle.includes(keyword.toLowerCase()) || postTitle.includes(keywordOpt.toLowerCase()))
-  ) {
-    console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
-    console.log('\x1b[36m%s\x1b[0m', item.url);
+  if (item.title.startsWith('[' + country)) {
+    if (postTitle.includes(keyword.toLowerCase()) && postTitle.includes(keywordOpt.toLowerCase())) {
+      console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
+      console.log('\x1b[36m%s\x1b[0m', item.url);
+      console.log('*MATCH: ' + keyword + ', ' + keywordOpt + '*');
+    } else if (postTitle.includes(keyword.toLowerCase())) {
+      console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
+      console.log('\x1b[36m%s\x1b[0m', item.url);
+      console.log('*MATCH: ' + keyword + '*');
+    }
   }
 });
