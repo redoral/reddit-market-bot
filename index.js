@@ -3,12 +3,11 @@ import Snoowrap from 'snoowrap';
 import * as dotenv from 'dotenv';
 
 /** Variables for filter */
-/**   ALL MUST BE LOWERCASE */
 /**   'flair' is REQUIRED (Buying/Selling/Trading/etc.) */
 /**   I do suggest putting in a country filter (us/eu/ph/etc.) */
 /**   Keyword is optional, use when looking for a specific item (ex: 65) */
-const country = 'us';
-const flair = 'selling';
+const country = 'US';
+const flair = 'Selling';
 const keyword = '65';
 
 /** Initialize dotenv */
@@ -35,15 +34,14 @@ console.log('Keyword: ' + 65);
 const submissions = new SubmissionStream(client, {
   subreddit: 'mechmarket',
   limit: 10,
-  pollTime: 30000
+  pollTime: 2000
 });
 
 /** Logs submission titles based on the given filter variables **/
 submissions.on('item', (item) => {
   const postTitle = item.title.toLowerCase();
-  const postFlair = item.link_flair_text.toLowerCase();
 
-  if (postFlair === flair && postTitle.startsWith('[' + country)) {
+  if (item.link_flair_text === flair && item.title.startsWith('[' + country)) {
     /** If keyword is not empty and the app finds the word on the post title,
      *   text will turn to green and the link to cyan*/
     if (postTitle.includes(keyword) && keyword) {
