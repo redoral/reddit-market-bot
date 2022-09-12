@@ -3,12 +3,11 @@ import Snoowrap from 'snoowrap';
 import * as dotenv from 'dotenv';
 
 /** Variables for filter */
-/**   'flair' is REQUIRED (Buying/Selling/Trading/etc.) */
-/**   I do suggest putting in a country filter (us/eu/ph/etc.) */
-/**   Keyword is optional, use when looking for a specific item (ex: 65) */
+/**   I do suggest putting in a country filter (US/EU/etc.) */
+/**   Both Keywords are optional, use when looking for a specific item (ex: 65) */
 const country = 'US';
-const flair = 'Selling';
-const keyword = '65';
+const keyword = 'qk65';
+const keywordOpt = '[W] Paypal';
 
 /** Initialize dotenv */
 dotenv.config();
@@ -27,8 +26,8 @@ console.log('\n***************************');
 console.log('Reddit Market Bot by Red');
 console.log('***************************');
 console.log('Country: ' + country);
-console.log('Flair: ' + flair);
-console.log('Keyword: ' + 65);
+console.log('Keyword: ' + keyword);
+console.log('***************************');
 
 /** Listens to new submissions every 30 seconds on r/mechmarket */
 const submissions = new SubmissionStream(client, {
@@ -41,15 +40,11 @@ const submissions = new SubmissionStream(client, {
 submissions.on('item', (item) => {
   const postTitle = item.title.toLowerCase();
 
-  if (item.link_flair_text === flair && item.title.startsWith('[' + country)) {
-    /** If keyword is not empty and the app finds the word on the post title,
-     *   text will turn to green and the link to cyan*/
-    if (postTitle.includes(keyword) && keyword) {
-      console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
-      console.log('\x1b[36m%s\x1b[0m', item.url);
-    } else {
-      console.log('\n[' + item.link_flair_text + '] ' + item.title);
-      console.log(item.url);
-    }
+  if (
+    item.title.startsWith('[' + country) &&
+    (postTitle.includes(keyword.toLowerCase()) || postTitle.includes(keywordOpt.toLowerCase()))
+  ) {
+    console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
+    console.log('\x1b[36m%s\x1b[0m', item.url);
   }
 });
