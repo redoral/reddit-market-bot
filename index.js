@@ -26,14 +26,15 @@ console.log('\n***************************');
 console.log('Reddit Market Bot by Red');
 console.log('***************************');
 console.log('Country: ' + country);
-console.log('Keyword: ' + keyword);
+console.log('Keyword: ' + (keyword ? keyword : 'N/A'));
+console.log('Keyword Optional: ' + (keywordOpt ? keywordOpt : 'N/A'));
 console.log('***************************');
 
 /** Listens to new submissions every 30 seconds on r/mechmarket */
 const submissions = new SubmissionStream(client, {
   subreddit: 'mechmarket',
   limit: 10,
-  pollTime: 2000
+  pollTime: 30000
 });
 
 /** Logs submission titles based on the given filter variables **/
