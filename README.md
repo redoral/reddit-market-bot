@@ -8,6 +8,8 @@ This was made for personal use as I am currently looking for new boards on [/r/m
 
 Made with [nodeJS](https://nodejs.org/en/), [snoowrap](https://www.npmjs.com/package/snoowrap), and [snoostorm](https://www.npmjs.com/package/snoostorm).
 
+**This is still a work in progress project, the code is currently unfinished.**
+
 ## Usage
 
 ### Requirements
@@ -41,4 +43,5 @@ REDDIT_PASS=***
 
 ## Future Plans
 
-If It turns out that I use this bot a lot, I might turn this into an API with ExpressJS and create a React Native frontend for it, but for now, console logging will do for my needs.
+- Google Assistant integration. I want my Google Home to say something when a match has been found for whatever item I am searching for.
+- If It turns out that I use this bot a lot, I might turn this into an API with ExpressJS and create a React Native frontend for it, but for now, console logging will do for my needs.
