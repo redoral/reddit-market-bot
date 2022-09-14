@@ -45,7 +45,7 @@ REDDIT_PASS=***
 Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing the `sub` in the code as long as the submission titles follow the following format:
 
 ```
-[US-NV] [W] Item that they want [H] Item that they have
+[US-NV] [H] Item that they have [W] Item that they want
 ```
 
 With `[US-NV]` being 2-letter formats of `[COUNTRY-STATE]` or `[COUNTRY-PROVINCE]`.
