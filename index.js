@@ -23,12 +23,12 @@ const client = new Snoowrap({
 });
 
 /** Info display */
-console.log('\n***************************');
-console.log('Reddit Market Bot by Red');
-console.log('***************************');
+console.log('\n**********************************************');
+console.log('Reddit Market Bot\nhttps://github.com/redoral/reddit-market-bot');
+console.log('**********************************************');
 console.log('Country: ' + (country ? country : 'N/A'));
 console.log('Keyword: ' + (keyword ? keyword : 'N/A'));
-console.log('***************************');
+console.log('**********************************************');
 
 /** Listens to new submissions every 30 seconds on r/mechmarket */
 const submissions = new SubmissionStream(client, {
