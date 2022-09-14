@@ -3,7 +3,10 @@ import * as googleTTS from 'google-tts-api';
 
 const googleHomeNotify = (numOfItems, sub) => {
   const msg =
-    numOfItems + `${numOfItems === 1 ? 'match' : 'matches'}` + ' have been found on ' + sub;
+    numOfItems.toString() +
+    `${numOfItems === 1 ? 'match' : 'matches'}` +
+    ' have been found on ' +
+    sub;
 
   const url = googleTTS.getAudioUrl(msg, {
     lang: 'en',
@@ -14,7 +17,7 @@ const googleHomeNotify = (numOfItems, sub) => {
   const client = new ChromecastAPI();
 
   client.on('device', (device) => {
-    device.play(url, function (err) {
+    device.play(url, (err) => {
       if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.');
     });
 

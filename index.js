@@ -7,7 +7,7 @@ import googleHomeNotify from './googlehome.js';
 /**   I do suggest putting in a country filter (US/EU/etc.) */
 /**   country and keyword are both optional, use keyword when looking for a specific item (ex: 65) */
 const sub = 'mechmarket';
-const country = '';
+const country = 'US';
 const keyword = 'paypal';
 
 /** Initialize dotenv */
@@ -38,7 +38,7 @@ const submissions = new SubmissionStream(client, {
 });
 
 /** Variables to keep track of posts per poll */
-var matches = [];
+var matches = 0;
 var postCount = 0;
 var initialPoll = true;
 
@@ -50,21 +50,21 @@ submissions.on('item', (item) => {
   if (item.title.startsWith('[' + country) && postTitle.includes(keyword.toLowerCase())) {
     console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
     console.log('\x1b[36m%s\x1b[0m', item.url);
-    matches.push(postTitle);
+    matches++;
   }
 
   /** Google Home casting */
-  if (keyword && postCount === 10 && initialPoll == true) {
-    if (matches.length > 0) {
-      googleHomeNotify(matches.length.toString(), sub);
+  if (keyword && initialPoll && postCount === 10) {
+    if (matches > 0) {
+      googleHomeNotify(matches, sub);
     }
     postCount = 0;
-    matches = [];
+    matches = 0;
     initialPoll = false;
-  } else if (keyword && initialPoll == false) {
-    if (matches.length > 0) {
+  } else if (keyword && !initialPoll) {
+    if (matches > 0) {
       googleHomeNotify(1, sub);
-      matches = [];
+      matches = 0;
     }
   }
 });
