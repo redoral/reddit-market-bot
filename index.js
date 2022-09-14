@@ -1,15 +1,14 @@
 import { SubmissionStream } from 'snoostorm';
 import Snoowrap from 'snoowrap';
 import * as dotenv from 'dotenv';
+import googleHomeNotify from './googlehome.js';
 
 /** Variables for filter */
-/**   ALL MUST BE LOWERCASE */
-/**   'flair' is REQUIRED (Buying/Selling/Trading/etc.) */
-/**   I do suggest putting in a country filter (us/eu/ph/etc.) */
-/**   Keyword is optional, use when looking for a specific item (ex: 65) */
-const country = 'us';
-const flair = 'selling';
-const keyword = '65';
+/**   I do suggest putting in a country filter (US/EU/etc.) */
+/**   country and keyword are both optional, use keyword when looking for a specific item (ex: 65) */
+const sub = 'mechmarket';
+const country = 'US';
+const keyword = 'paypal';
 
 /** Initialize dotenv */
 dotenv.config();
@@ -27,31 +26,45 @@ const client = new Snoowrap({
 console.log('\n***************************');
 console.log('Reddit Market Bot by Red');
 console.log('***************************');
-console.log('Country: ' + country);
-console.log('Flair: ' + flair);
-console.log('Keyword: ' + 65);
+console.log('Country: ' + (country ? country : 'N/A'));
+console.log('Keyword: ' + (keyword ? keyword : 'N/A'));
+console.log('***************************');
 
 /** Listens to new submissions every 30 seconds on r/mechmarket */
 const submissions = new SubmissionStream(client, {
-  subreddit: 'mechmarket',
+  subreddit: sub,
   limit: 10,
-  pollTime: 30000
+  pollTime: 5000
 });
+
+/** Variables to keep track of posts per poll */
+var matches = 0;
+var postCount = 0;
+var initialPoll = true;
 
 /** Logs submission titles based on the given filter variables **/
 submissions.on('item', (item) => {
+  postCount++;
   const postTitle = item.title.toLowerCase();
-  const postFlair = item.link_flair_text.toLowerCase();
 
-  if (postFlair === flair && postTitle.startsWith('[' + country)) {
-    /** If keyword is not empty and the app finds the word on the post title,
-     *   text will turn to green and the link to cyan*/
-    if (postTitle.includes(keyword) && keyword) {
-      console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
-      console.log('\x1b[36m%s\x1b[0m', item.url);
-    } else {
-      console.log('\n[' + item.link_flair_text + '] ' + item.title);
-      console.log(item.url);
+  if (item.title.startsWith('[' + country) && postTitle.includes(keyword.toLowerCase())) {
+    console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
+    console.log('\x1b[36m%s\x1b[0m', item.url);
+    matches++;
+  }
+
+  /** Google Home casting */
+  if (keyword && initialPoll && postCount === 10) {
+    if (matches > 0) {
+      googleHomeNotify(matches, sub);
+    }
+    postCount = 0;
+    matches = 0;
+    initialPoll = false;
+  } else if (keyword && !initialPoll) {
+    if (matches > 0) {
+      googleHomeNotify(1, sub);
+      matches = 0;
     }
   }
 });

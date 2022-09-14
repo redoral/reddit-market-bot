@@ -1,21 +1,20 @@
-# Reddit Market Bot
+# [WIP] Reddit Market Bot w/ Chromecast
 
-![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?style=for-the-badge&logo=Reddit&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?style=for-the-badge&logo=Reddit&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Google Assistant](https://img.shields.io/badge/google%20assistant-4285F4?style=for-the-badge&logo=google%20assistant&logoColor=white)
 
-The Reddit Market Bot is a simple bot that listens to new posts on a specified subreddit and logs the new posts to the console.
+The Reddit Market Bot is a simple bot that listens to new posts on a specified market subreddit, logs the new posts that matches the search query to the console, and notifies via audio using a Chromecast device (ideally a Google Home speaker).
 
-This was made for personal use as I am currently looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket).
+This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board (zoom65)!
 
-Made with [nodeJS](https://nodejs.org/en/), [snoowrap](https://www.npmjs.com/package/snoowrap), and [snoostorm](https://www.npmjs.com/package/snoostorm).
+Made with:
 
-**This is still a work in progress project, the code is currently unfinished.**
+- [nodejs](https://nodejs.org/en/)
+- [snoowrap](https://github.com/not-an-aardvark/snoowrap)
+- [snoostorm](https://github.com/MayorMonty/Snoostorm)
+- [chromecast-api](https://github.com/alxhotel/chromecast-api)
+- [google-tts-api](https://github.com/zlargon/google-tts)
 
 ## Usage
-
-### Requirements
-
-- NodeJS
-- Git
 
 ### Installation
 
@@ -39,9 +38,23 @@ REDDIT_PASS=***
 ```
 
 5. Fill in the necessary values. For instructions on how to get the values, see [example](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
-6. Update filter if needed in code, then run the app with `node index.js` and you should be good to go!
+6. Update filter using `sub`, `country`, and `keyword` if needed in `index.js`, then run the app with `node index.js` and you should be good to go!
+
+## Support
+
+Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing the `sub` in the code as long as the submission titles follow the following format:
+
+```
+[US-NV] [H] Item that they have [W] Item that they want
+```
+
+With `[US-NV]` being 2-letter formats of `[COUNTRY-STATE]` or `[COUNTRY-PROVINCE]`.
 
 ## Future Plans
 
-- Google Assistant integration. I want my Google Home to say something when a match has been found for whatever item I am searching for.
-- If It turns out that I use this bot a lot, I might turn this into an API with ExpressJS and create a React Native frontend for it, but for now, console logging will do for my needs.
+Everything you see listed here is just something that I eventually want to do but is unlikely to happen, but you never know! Anyway, I'm thinking of doing the following:
+
+- Device selection for casting to Chromecast device.
+- Support for other market subreddits.
+- Convert project into an API using ExpressJS.
+- Create a mobile frontend, with push notifications, using React Native.
