@@ -3,15 +3,20 @@ import Snoowrap from 'snoowrap';
 import * as dotenv from 'dotenv';
 import googleHomeNotify from './googlehome.js';
 
+/** Initialize dotenv */
+dotenv.config();
+
 /** Variables for filter */
 /**   I do suggest putting in a country filter (US/EU/etc.) */
 /**   country and keyword are both optional, use keyword when looking for a specific item (ex: 65) */
-const sub = 'mechmarket';
-const country = 'US';
-const keyword = 'paypal';
+let sub = 'mechmarket';
+let country = 'US';
+let keyword = '';
 
-/** Initialize dotenv */
-dotenv.config();
+/** Info display */
+console.log('\n**********************************************');
+console.log('Reddit Market Bot\nhttps://github.com/redoral/reddit-market-bot');
+console.log('**********************************************');
 
 /** Create snoowrap client using dotenv variables */
 const client = new Snoowrap({
@@ -22,14 +27,6 @@ const client = new Snoowrap({
   password: process.env.REDDIT_PASS
 });
 
-/** Info display */
-console.log('\n**********************************************');
-console.log('Reddit Market Bot\nhttps://github.com/redoral/reddit-market-bot');
-console.log('**********************************************');
-console.log('Country: ' + (country ? country : 'N/A'));
-console.log('Keyword: ' + (keyword ? keyword : 'N/A'));
-console.log('**********************************************');
-
 /** Listens to new submissions every 30 seconds on r/mechmarket */
 const submissions = new SubmissionStream(client, {
   subreddit: sub,
@@ -38,9 +35,9 @@ const submissions = new SubmissionStream(client, {
 });
 
 /** Variables to keep track of posts per poll */
-var matches = 0;
-var postCount = 0;
-var initialPoll = true;
+let matches = 0;
+let postCount = 0;
+let initialPoll = true;
 
 /** Logs submission titles based on the given filter variables **/
 submissions.on('item', (item) => {
