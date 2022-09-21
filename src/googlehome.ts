@@ -29,9 +29,7 @@ const googleHomeNotify = (numOfItems: number, sub: string) => {
 
     /** Disconnect from Chromecast after audio plays */
     device.on('finished', () => {
-      device.close(() => {
-        console.log('Disconnected from ' + device.friendlyName + '.');
-      });
+      device.close();
     });
   });
 };

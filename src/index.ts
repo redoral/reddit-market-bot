@@ -7,8 +7,8 @@ import googleHomeNotify from './googlehome';
 dotenv.config();
 
 /** Variables for filter */
-/**   I do suggest putting in a country filter (US/EU/etc.) */
-/**   country and keyword are both optional, use keyword when looking for a specific item (ex: 65) */
+/**   I do suggest putting in a `country` filter (US/EU/etc.) though is it optional*/
+/**     `keyword` is also optional, use keyword when looking for a specific item (ex: zoom65) */
 let sub: string = 'mechmarket';
 let country: string = 'US';
 let keyword: string = '';
@@ -35,17 +35,20 @@ const submissions = new SubmissionStream(client, {
 });
 
 /** Variables to keep track of posts per poll */
+/**   Used to prevent Chromecast from spamming the audio notification */
 let matches = 0;
 let postCount = 0;
 let initialPoll = true;
 
 /** Logs submission titles based on the given filter variables **/
+/**   This part of the code needs some work */
 submissions.on('item', (item: Submission) => {
   postCount++;
 
-  const postTitle: string = item.title.toLowerCase();
-
-  if (item.title.startsWith('[' + country) && postTitle.includes(keyword.toLowerCase())) {
+  if (
+    item.title.startsWith('[' + country) &&
+    item.title.toLowerCase().includes(keyword.toLowerCase())
+  ) {
     console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);
     console.log('\x1b[36m%s\x1b[0m', item.url);
     matches++;
