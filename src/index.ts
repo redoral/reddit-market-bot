@@ -1,7 +1,7 @@
 import { SubmissionStream } from 'snoostorm';
-import Snoowrap from 'snoowrap';
+import Snoowrap, { Submission } from 'snoowrap';
 import * as dotenv from 'dotenv';
-import googleHomeNotify from './googlehome.js';
+import googleHomeNotify from './googlehome';
 
 /** Initialize dotenv */
 dotenv.config();
@@ -9,9 +9,9 @@ dotenv.config();
 /** Variables for filter */
 /**   I do suggest putting in a country filter (US/EU/etc.) */
 /**   country and keyword are both optional, use keyword when looking for a specific item (ex: 65) */
-let sub = 'mechmarket';
-let country = 'US';
-let keyword = '';
+let sub: string = 'mechmarket';
+let country: string = 'US';
+let keyword: string = '';
 
 /** Info display */
 console.log('\n**********************************************');
@@ -40,9 +40,10 @@ let postCount = 0;
 let initialPoll = true;
 
 /** Logs submission titles based on the given filter variables **/
-submissions.on('item', (item) => {
+submissions.on('item', (item: Submission) => {
   postCount++;
-  const postTitle = item.title.toLowerCase();
+
+  const postTitle: string = item.title.toLowerCase();
 
   if (item.title.startsWith('[' + country) && postTitle.includes(keyword.toLowerCase())) {
     console.log('\x1b[32m', '\n[' + item.link_flair_text + '] ' + item.title);

@@ -2,10 +2,10 @@
   "name": "reddit-market-bot",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node --esm ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,10 @@
     "dotenv": "^16.0.2",
     "google-tts-api": "^2.0.2",
     "snoostorm": "^1.5.2",
-    "snoowrap": "^1.23.0"
+    "snoowrap": "^1.23.0",
+    "typescript": "^4.8.3"
+  },
+  "devDependencies": {
+    "@types/chromecast-api": "^0.4.1"
   }
 }
