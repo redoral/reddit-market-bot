@@ -1,7 +1,7 @@
 import { SubmissionStream } from 'snoostorm';
 import Snoowrap, { Submission } from 'snoowrap';
 import * as dotenv from 'dotenv';
-import googleHomeNotify from './googlehome';
+import googleHomeNotify from './chromecast';
 
 /** Initialize dotenv */
 dotenv.config();
