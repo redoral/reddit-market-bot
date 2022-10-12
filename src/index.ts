@@ -13,7 +13,7 @@ const app = async (isRunning: boolean, params: ParamsI) => {
     let matches = 0;
 
     data.data.children.forEach((post: PostChildrenI) => {
-      if (post.data.title.indexOf(params.query) >= 0) {
+      if (post.data.title.indexOf(params.query) !== -1) {
         console.log(post.data.title);
         matches++;
       }
