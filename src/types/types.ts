@@ -19,4 +19,9 @@ interface ParamsI {
   enableCasting: boolean;
 }
 
-export { PostChildrenI, PostI, ParamsI };
+interface RedditMarketBotI {
+  params: ParamsI;
+  listen: () => void;
+}
+
+export { PostChildrenI, PostI, ParamsI, RedditMarketBotI };

@@ -8,7 +8,7 @@ const sleep = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-/** Function to fetch posts from reddit */
+/** Function to fetch posts from reddit using axios */
 const fetchPosts = async (subreddit: string, postCount: number) => {
   try {
     const res = await axios.get(`https://reddit.com/r/${subreddit}/new/.json?limit=${postCount}`);
@@ -20,7 +20,7 @@ const fetchPosts = async (subreddit: string, postCount: number) => {
 };
 
 /** Function that plays audio on Chromecast device */
-const castNotify = (numOfItems: number, sub: string) => {
+const castNotify = async (numOfItems: number, sub: string) => {
   /** Text to play on Chromecast device */
   const msg: string =
     numOfItems.toString() +

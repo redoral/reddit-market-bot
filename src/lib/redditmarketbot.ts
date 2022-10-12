@@ -1,7 +1,7 @@
-import { sleep, fetchPosts } from './actions';
-import { PostI, PostChildrenI, ParamsI } from '../types/types';
+import { sleep, fetchPosts, castNotify } from './actions';
+import { PostI, PostChildrenI, ParamsI, RedditMarketBotI } from '../types/types';
 
-class RedditMarketBot {
+class RedditMarketBot implements RedditMarketBotI {
   params;
 
   constructor(params: ParamsI) {
@@ -10,18 +10,20 @@ class RedditMarketBot {
 
   async listen() {
     while (true) {
-      const data: PostI = await fetchPosts(this.params.subreddit, this.params.postCount);
       let matches = 0;
+      const data: PostI = await fetchPosts(this.params.subreddit, this.params.postCount);
 
       data.data.children.forEach((post: PostChildrenI) => {
         if (post.data.title.indexOf(this.params.query) !== -1) {
-          console.log(post.data.title);
+          console.log('\x1b[36m%s\x1b[0m', post.data.title);
+          console.log('\x1b[32m%s\x1b[0m', post.data.url + '\n');
           matches++;
         }
       });
 
-      // TODO: Replace console.log() with castNotify()
-      console.log('\n' + matches + ' matches have been found on this scan.');
+      if (this.params.enableCasting && matches > 0) {
+        await castNotify(matches, this.params.subreddit);
+      }
 
       await sleep(30000);
     }
