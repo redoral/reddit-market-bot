@@ -1,9 +1,26 @@
+import axios from 'axios';
 import ChromecastAPI from 'chromecast-api';
 import Device from 'chromecast-api/lib/device';
 import * as googleTTS from 'google-tts-api';
 
+/** Function for sleep, prevents app from fetching data multiple times in a short amount of time */
+const sleep = async (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+/** Function to fetch posts from reddit */
+const fetchPosts = async () => {
+  try {
+    const res = await axios.get('https://reddit.com/r/mechmarket/new/.json?count=10');
+    return Promise.resolve(res.data);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
 /** Function that plays audio on Chromecast device */
-const googleHomeNotify = (numOfItems: number, sub: string) => {
+const castNotify = (numOfItems: number, sub: string) => {
   /** Text to play on Chromecast device */
   const msg: string =
     numOfItems.toString() +
@@ -34,4 +51,4 @@ const googleHomeNotify = (numOfItems: number, sub: string) => {
   });
 };
 
-export default googleHomeNotify;
+export { sleep, fetchPosts, castNotify };

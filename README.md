@@ -10,8 +10,7 @@ This was made for personal use when I was looking for new boards on [/r/mechmark
 Made with:
 
 - [nodejs](https://nodejs.org/en/)
-- [snoowrap](https://github.com/not-an-aardvark/snoowrap)
-- [snoostorm](https://github.com/MayorMonty/Snoostorm)
+- [axios](https://github.com/axios/axios)
 - [chromecast-api](https://github.com/alxhotel/chromecast-api)
 - [google-tts-api](https://github.com/zlargon/google-tts)
 
