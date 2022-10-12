@@ -28,7 +28,16 @@ cd reddit-market-bot
 npm install
 ```
 
-4. On `app()` in `index.ts` update the second parameter to whatever it is you're searching for.
+4. Update `params` on `index.ts` to your liking
+
+```TypeScript
+interface ParamsI {
+  query: string; // The string to search for in each title
+  subreddit: string; // The subreddit you want this bot to scan
+  postLimit: number; // The maximum amount of posts to fetch on each call
+};
+```
+
 5. Run the app using `npm start` or `npm run start`
 
 ## Support

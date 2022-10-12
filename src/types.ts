@@ -12,4 +12,10 @@ interface PostI {
   };
 }
 
-export { PostChildrenI, PostI };
+interface ParamsI {
+  query: string;
+  subreddit: string;
+  postCount: number;
+}
+
+export { PostChildrenI, PostI, ParamsI };

@@ -9,9 +9,9 @@ const sleep = async (ms: number) => {
 };
 
 /** Function to fetch posts from reddit */
-const fetchPosts = async () => {
+const fetchPosts = async (subreddit: string, postCount: number) => {
   try {
-    const res = await axios.get('https://reddit.com/r/mechmarket/new/.json?count=10');
+    const res = await axios.get(`https://reddit.com/r/${subreddit}/new/.json?limit=${postCount}`);
     return Promise.resolve(res.data);
   } catch (e) {
     console.log(e);
