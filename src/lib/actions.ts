@@ -13,7 +13,7 @@ const fetchPosts = async (subreddit: string, postCount: number) => {
   try {
     const res = await axios.get(`https://reddit.com/r/${subreddit}/new/.json?limit=${postCount}`);
     return Promise.resolve(res.data);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return null;
   }

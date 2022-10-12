@@ -16,6 +16,7 @@ interface ParamsI {
   query: string;
   subreddit: string;
   postCount: number;
+  enableCasting: boolean;
 }
 
 export { PostChildrenI, PostI, ParamsI };
