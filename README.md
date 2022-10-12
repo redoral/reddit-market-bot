@@ -28,17 +28,8 @@ cd reddit-market-bot
 npm install
 ```
 
-4. Create a .env file with the following parameters:
-
-```js
-CLIENT_ID=***
-CLIENT_SECRET=***
-REDDIT_USER=***
-REDDIT_PASS=***
-```
-
-5. Fill in the necessary values. For instructions on how to get the values, see [example](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
-6. Update filter using `sub`, `country`, and `keyword` if needed in `index.js`, then run the app with `node index.js` and you should be good to go!
+4. On `app()` in `index.ts` update the second parameter to whatever it is you're searching for.
+5. Run the app using `npm start` or `npm run start`
 
 ## Support
 
