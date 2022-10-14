@@ -35,7 +35,6 @@ interface ParamsI {
   query: string; // The string to search for in each title
   subreddit: string; // The subreddit you want this bot to scan
   postLimit: number; // The maximum amount of posts to fetch on each call
-  enableCasting: boolean; // Toggle to enable/disable audio notify via Chromecast
 };
 ```
 

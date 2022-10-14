@@ -15,13 +15,14 @@ interface PostI {
 interface ParamsI {
   query: string;
   subreddit: string;
-  postCount: number;
-  enableCasting: boolean;
+  postLimit: number;
 }
 
 interface RedditMarketBotI {
   params: ParamsI;
-  listen: () => void;
+  matches: number;
+  listen: (callback: () => void) => void;
+  cast: (numOfItems: number, sub: string) => void;
 }
 
 export { PostChildrenI, PostI, ParamsI, RedditMarketBotI };
