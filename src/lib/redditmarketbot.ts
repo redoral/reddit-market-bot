@@ -33,12 +33,16 @@ class RedditMarketBot implements RedditMarketBotI {
 
           this.matches++;
           this.loggedPosts.push(post.data.name);
-
-          callback();
         }
       });
 
-      await sleep(5000);
+      if (this.loggedPosts.length > this.params.postLimit) {
+        this.loggedPosts = [];
+      }
+
+      callback();
+
+      await sleep(3000);
     }
   }
 
