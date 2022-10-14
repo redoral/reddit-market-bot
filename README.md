@@ -40,6 +40,22 @@ interface ParamsI {
 
 5. Run the app using `npm start` or `npm run start`
 
+### Class Usage
+
+```TypeScript
+// Create the bot object
+const bot = new RedditMarketBot(params);
+
+// Start the bot using .listen()
+bot.listen(() => {
+  // Callback function, do what you want here once fetching is done
+  //  Use .cast() to cast audio notifications to a Chromecast device
+  bot.cast()
+})
+```
+
+This block of code is already on `app.ts` but I am writing it in here anyway as an example.
+
 ## Support
 
 Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing the `sub` in the code as long as the submission titles follow the following format:
