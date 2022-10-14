@@ -3,6 +3,7 @@ interface PostChildrenI {
     title: string;
     link_flair_text: string;
     url: string;
+    name: string;
   };
 }
 
@@ -21,6 +22,7 @@ interface ParamsI {
 interface RedditMarketBotI {
   params: ParamsI;
   matches: number;
+  loggedPosts: string[];
   listen: (callback: () => void) => void;
   cast: (numOfItems: number, sub: string) => void;
 }

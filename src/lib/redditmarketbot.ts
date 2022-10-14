@@ -7,19 +7,16 @@ import Device from 'chromecast-api/lib/device';
 class RedditMarketBot implements RedditMarketBotI {
   params: ParamsI;
   matches: number;
+  loggedPosts: string[];
 
-  constructor(params: ParamsI, matches: number = 0) {
+  constructor(params: ParamsI, matches: number = 0, loggedPosts: string[] = []) {
     this.params = params;
     this.matches = matches;
+    this.loggedPosts = loggedPosts;
   }
 
   /**
    * Scans subreddit and alerts user via console/casting on new posts that match the search query
-   *
-   * @remarks
-   * Need to implement pagination
-   *
-   * @beta
    */
   async listen(callback: () => void) {
     while (true) {
@@ -27,20 +24,26 @@ class RedditMarketBot implements RedditMarketBotI {
       const data: PostI = await fetchPosts(this.params.subreddit, this.params.postLimit);
 
       data.data.children.forEach((post: PostChildrenI) => {
-        if (post.data.title.indexOf(this.params.query) !== -1) {
+        if (
+          post.data.title.indexOf(this.params.query) !== -1 &&
+          !this.loggedPosts.includes(post.data.name)
+        ) {
           console.log('\x1b[36m%s\x1b[0m', post.data.title);
           console.log('\x1b[32m%s\x1b[0m', post.data.url + '\n');
+
           this.matches++;
+          this.loggedPosts.push(post.data.name);
+
+          callback();
         }
       });
 
-      callback();
-      await sleep(30000);
+      await sleep(5000);
     }
   }
 
   /**
-   * Gets the number of match (if any), converts it into audio, then casts it into a Chromecast device
+   * Gets the number of matches (if any), converts it into audio, then casts it into a Chromecast device
    *
    * @remarks
    * Need to implement manual device selection

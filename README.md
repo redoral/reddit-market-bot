@@ -58,7 +58,7 @@ This block of code is already on `app.ts` but I am writing it in here anyway as 
 
 ## Support
 
-Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing the `sub` in the code as long as the submission titles follow the following format:
+Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing `subreddit` in `params` as long as the submission titles follow the following format:
 
 ```
 [US-NV] [H] Item that they have [W] Item that they want
