@@ -40,9 +40,11 @@ class RedditMarketBot implements RedditMarketBotI {
         this.loggedPosts = [];
       }
 
-      callback();
+      if (this.matches > 0) {
+        callback();
+      }
 
-      await sleep(3000);
+      await sleep(30000);
     }
   }
 
