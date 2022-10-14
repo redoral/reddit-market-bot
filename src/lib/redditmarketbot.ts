@@ -40,10 +40,7 @@ class RedditMarketBot implements RedditMarketBotI {
         this.loggedPosts = [];
       }
 
-      if (this.matches > 0) {
-        callback();
-      }
-
+      callback();
       await sleep(30000);
     }
   }
@@ -57,29 +54,31 @@ class RedditMarketBot implements RedditMarketBotI {
    * @beta
    */
   cast() {
-    const msg: string =
-      this.matches.toString() +
-      `${this.matches === 1 ? ' match' : ' matches'}` +
-      ' have been found on ' +
-      this.params.subreddit;
+    if (this.matches > 0) {
+      const msg: string =
+        this.matches.toString() +
+        `${this.matches === 1 ? ' match' : ' matches'}` +
+        ' have been found on ' +
+        this.params.subreddit;
 
-    const url: string = googleTTS.getAudioUrl(msg, {
-      lang: 'en',
-      slow: false,
-      host: 'https://translate.google.com'
-    });
-
-    const client = new ChromecastAPI();
-
-    client.on('device', (device: Device) => {
-      device.play(url, (err) => {
-        if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.');
+      const url: string = googleTTS.getAudioUrl(msg, {
+        lang: 'en',
+        slow: false,
+        host: 'https://translate.google.com'
       });
 
-      device.on('finished', () => {
-        device.close();
+      const client = new ChromecastAPI();
+
+      client.on('device', (device: Device) => {
+        device.play(url, (err) => {
+          if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.');
+        });
+
+        device.on('finished', () => {
+          device.close();
+        });
       });
-    });
+    }
   }
 }
 
