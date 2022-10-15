@@ -3,13 +3,7 @@ import RedditMarketBot from './lib/redditmarketbot';
 
 /**
  * Customizable parameters to match your search query
- *
- * @remarks
- * For the data types of each of these parameters, refer to ParamsI
- *
- * @param query - The string to search for in each title
- * @param subreddit - The subreddit you want this bot to scan
- * @param postLimit - The maximum amount of posts to fetch on each call
+ * @see {@link ParamsI} for the data types and field descriptions
  *
  * @beta
  */
@@ -19,10 +13,15 @@ const params: ParamsI = {
   postLimit: 10
 };
 
-// Create a new bot object and pass the params object
+/**
+ * Initialize new bot object
+ */
 const bot = new RedditMarketBot(params);
 
-// Start the bot using .listen()
+/**
+ * Start the bot using .listen()
+ * Enable cast notifications using .cast()
+ */
 bot.listen(() => {
   bot.cast();
 });

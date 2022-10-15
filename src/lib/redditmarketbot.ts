@@ -4,6 +4,9 @@ import * as googleTTS from 'google-tts-api';
 import ChromecastAPI from 'chromecast-api';
 import Device from 'chromecast-api/lib/device';
 
+/**
+ * The main class for the bot
+ */
 class RedditMarketBot implements RedditMarketBotI {
   params: ParamsI;
   matches: number;
@@ -17,6 +20,11 @@ class RedditMarketBot implements RedditMarketBotI {
 
   /**
    * Scans subreddit and alerts user via console/casting on new posts that match the search query
+   * @remarks
+   * Needs optimization
+   *
+   * @param callback - Callback function that is used to execute something after the bot is finished fetching and logging data
+   * @beta
    */
   async listen(callback: () => void) {
     while (true) {
@@ -47,9 +55,8 @@ class RedditMarketBot implements RedditMarketBotI {
 
   /**
    * Gets the number of matches (if any), converts it into audio, then casts it into a Chromecast device
-   *
    * @remarks
-   * Need to implement manual device selection
+   * Needs manual device selection
    *
    * @beta
    */
