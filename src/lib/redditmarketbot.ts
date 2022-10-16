@@ -78,7 +78,7 @@ class RedditMarketBot implements RedditMarketBotI {
 
       client.on('device', (device: Device) => {
         device.play(url, (err) => {
-          if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.');
+          if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.\n');
         });
 
         device.on('finished', () => {

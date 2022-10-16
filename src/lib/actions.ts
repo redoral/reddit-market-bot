@@ -15,7 +15,6 @@ const sleep = async (ms: number) => {
  * @param subreddit - The subreddit you want this bot to scan
  * @param postLimit -  The maximum amount of posts to fetch on each call
  * @returns A JSON object
- * @throws An AxiosError exception
  *
  * @beta
  */
@@ -24,7 +23,7 @@ const fetchPosts = async (subreddit: string, postLimit: number) => {
     const res = await axios.get(`https://reddit.com/r/${subreddit}/new/.json?limit=${postLimit}`);
     return Promise.resolve(res.data);
   } catch (e: any) {
-    throw new AxiosError(e);
+    return e.response;
   }
 };
 
