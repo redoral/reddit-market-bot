@@ -27,10 +27,9 @@ class RedditMarketBot implements RedditMarketBotI {
     while (true) {
       const data: PostI = await fetchPosts(this.params.subreddit, this.params.postLimit);
       let sliced: PostChildrenI[] = data.data.children;
-      this.matches = 0;
 
       if (this.latest) {
-        const latestIndex = data.data.children.findIndex((post) => {
+        const latestIndex = data.data.children.findIndex((post: PostChildrenI) => {
           return post.data.name === this.latest;
         });
 
@@ -39,11 +38,10 @@ class RedditMarketBot implements RedditMarketBotI {
 
       sliced.forEach((post: PostChildrenI) => {
         if (post.data.title.toLowerCase().indexOf(this.params.query.toLowerCase()) !== -1) {
+          this.matches++;
           console.log(post.data.title);
           console.log(`${post.data.url} \n`);
         }
-
-        this.matches++;
       });
 
       this.latest = data.data.children[0].data.name;

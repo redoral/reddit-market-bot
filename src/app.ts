@@ -23,4 +23,6 @@ const bot = new RedditMarketBot(params);
  * Start the bot using .listen()
  * Enable cast notifications using .cast()
  */
-bot.listen(() => {});
+bot.listen(() => {
+  bot.cast();
+});
