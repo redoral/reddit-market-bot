@@ -10,7 +10,8 @@ import RedditMarketBot from './lib/redditmarketbot';
 const params: ParamsI = {
   query: '',
   subreddit: 'mechmarket',
-  postLimit: 10
+  postLimit: 10,
+  pollRate: 15000
 };
 
 /**
@@ -22,6 +23,4 @@ const bot = new RedditMarketBot(params);
  * Start the bot using .listen()
  * Enable cast notifications using .cast()
  */
-bot.listen(() => {
-  bot.cast();
-});
+bot.listen(() => {});

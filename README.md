@@ -5,7 +5,7 @@
 
 The Reddit Market Bot is a simple bot that listens to new posts on a specified market subreddit, logs the new posts that matches the search query to the console, and notifies via audio using a Chromecast device (ideally a Google Home speaker).
 
-This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board (zoom65)!
+This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board!
 
 Made with:
 
@@ -35,6 +35,7 @@ interface ParamsI {
   query: string; // The string to search for in each title
   subreddit: string; // The subreddit you want this bot to scan
   postLimit: number; // The maximum amount of posts to fetch on each call
+  pollRate: number; // Number of times the bot will scan the subreddit in ms
 };
 ```
 

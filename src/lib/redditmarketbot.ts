@@ -10,46 +10,45 @@ import Device from 'chromecast-api/lib/device';
 class RedditMarketBot implements RedditMarketBotI {
   params: ParamsI;
   matches: number;
-  loggedPosts: string[];
+  latest: string;
 
-  constructor(params: ParamsI, matches: number = 0, loggedPosts: string[] = []) {
+  constructor(params: ParamsI, matches: number = 0, latest: string = '') {
     this.params = params;
     this.matches = matches;
-    this.loggedPosts = loggedPosts;
+    this.latest = latest;
   }
 
   /**
    * Scans subreddit and alerts user via console/casting on new posts that match the search query
-   * @remarks
-   * Needs optimization
    *
    * @param callback - Callback function that is used to execute something after the bot is finished fetching and logging data
-   * @beta
    */
   async listen(callback: () => void) {
     while (true) {
-      this.matches = 0;
       const data: PostI = await fetchPosts(this.params.subreddit, this.params.postLimit);
+      let sliced: PostChildrenI[] = data.data.children;
+      this.matches = 0;
 
-      data.data.children.forEach((post: PostChildrenI) => {
-        if (
-          post.data.title.indexOf(this.params.query) !== -1 &&
-          !this.loggedPosts.includes(post.data.name)
-        ) {
-          console.log('\x1b[36m%s\x1b[0m', post.data.title);
-          console.log('\x1b[32m%s\x1b[0m', post.data.url + '\n');
+      if (this.latest) {
+        const latestIndex = data.data.children.findIndex((post) => {
+          return post.data.name === this.latest;
+        });
 
-          this.matches++;
-          this.loggedPosts.push(post.data.name);
-        }
-      });
-
-      if (this.loggedPosts.length > this.params.postLimit) {
-        this.loggedPosts = [];
+        sliced = data.data.children.slice(0, latestIndex);
       }
 
+      sliced.forEach((post: PostChildrenI) => {
+        if (post.data.title.toLowerCase().indexOf(this.params.query.toLowerCase()) !== -1) {
+          console.log(post.data.title);
+          console.log(`${post.data.url} \n`);
+        }
+
+        this.matches++;
+      });
+
+      this.latest = data.data.children[0].data.name;
       callback();
-      await sleep(30000);
+      await sleep(this.params.pollRate);
     }
   }
 

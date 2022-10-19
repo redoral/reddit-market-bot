@@ -31,25 +31,27 @@ interface PostI {
  * @member query - The string to search for in each title
  * @member subreddit - The subreddit you want this bot to scan
  * @member postLimit - The maximum amount of posts to fetch on each call
+ * @member pollRate - Number of times the bot will scan the subreddit in ms
  */
 interface ParamsI {
   query: string;
   subreddit: string;
   postLimit: number;
+  pollRate: number;
 }
 
 /**
  * Interface for the main RedditMarketBot class
  * @member params - Customizable parameters to match the search query
  * @member matches - The subreddit you want this bot to scan
- * @member loggedPosts - The maximum amount of posts to fetch on each call
+ * @member latest - The newest post on the subreddit
  * @member listen - Class method that scans newest submissions that matches the search query
  * @member cast - Class method that casts an audio notification to a Chromecast device
  */
 interface RedditMarketBotI {
   params: ParamsI;
   matches: number;
-  loggedPosts: string[];
+  latest: string;
   listen: (callback: () => void) => void;
   cast: (numOfItems: number, sub: string) => void;
 }
