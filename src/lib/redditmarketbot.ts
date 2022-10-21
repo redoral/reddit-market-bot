@@ -39,13 +39,17 @@ class RedditMarketBot implements RedditMarketBotI {
       sliced.forEach((post: PostChildrenI) => {
         if (post.data.title.toLowerCase().indexOf(this.params.query.toLowerCase()) !== -1) {
           this.matches++;
-          console.log(post.data.title);
-          console.log(`${post.data.url} \n`);
+          console.log(
+            '\x1b[32m%s\x1b[0m',
+            `[${new Date(post.data.created * 1000).toLocaleTimeString('en-US')}] ${post.data.title}`
+          );
+          console.log('\x1b[36m%s\x1b[0m', `${post.data.url} \n`);
         }
       });
 
-      this.latest = data.data.children[0].data.name;
       callback();
+      this.matches = 0;
+      this.latest = data.data.children[0].data.name;
       await sleep(this.params.pollRate);
     }
   }
@@ -75,7 +79,8 @@ class RedditMarketBot implements RedditMarketBotI {
 
       client.on('device', (device: Device) => {
         device.play(url, (err) => {
-          if (!err) console.log('\nPlaying notification on ' + device.friendlyName + '.\n');
+          if (!err)
+            console.log('\x1b[2m%s\x1b[0m', `Playing notification on ${device.friendlyName} \n`);
         });
 
         device.on('finished', () => {

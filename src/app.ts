@@ -9,7 +9,7 @@ import RedditMarketBot from './lib/redditmarketbot';
  */
 const params: ParamsI = {
   query: '',
-  subreddit: 'mechmarket',
+  subreddit: 'hardwareswap',
   postLimit: 10,
   pollRate: 15000
 };

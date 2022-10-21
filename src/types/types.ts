@@ -12,6 +12,7 @@ interface PostChildrenI {
     link_flair_text: string;
     url: string;
     name: string;
+    created: number;
   };
 }
 
