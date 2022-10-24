@@ -5,13 +5,12 @@
 
 The Reddit Market Bot is a simple bot that listens to new posts on a specified market subreddit, logs the new posts that matches the search query to the console, and notifies via audio using a Chromecast device (ideally a Google Home speaker).
 
-This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board (zoom65)!
+This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board!
 
 Made with:
 
 - [nodejs](https://nodejs.org/en/)
-- [snoowrap](https://github.com/not-an-aardvark/snoowrap)
-- [snoostorm](https://github.com/MayorMonty/Snoostorm)
+- [axios](https://github.com/axios/axios)
 - [chromecast-api](https://github.com/alxhotel/chromecast-api)
 - [google-tts-api](https://github.com/zlargon/google-tts)
 
@@ -29,21 +28,38 @@ cd reddit-market-bot
 npm install
 ```
 
-4. Create a .env file with the following parameters:
+4. Update `params` on `index.ts` to your liking
 
-```js
-CLIENT_ID=***
-CLIENT_SECRET=***
-REDDIT_USER=***
-REDDIT_PASS=***
+```TypeScript
+interface ParamsI {
+  query: string; // The string to search for in each title
+  subreddit: string; // The subreddit you want this bot to scan
+  postLimit: number; // The maximum amount of posts to fetch on each call
+  pollRate: number; // Number of times the bot will scan the subreddit in ms
+};
 ```
 
-5. Fill in the necessary values. For instructions on how to get the values, see [example](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
-6. Update filter using `sub`, `country`, and `keyword` if needed in `index.js`, then run the app with `node index.js` and you should be good to go!
+5. Run the app using `npm start` or `npm run start`
+
+### Class Usage
+
+```TypeScript
+// Create the bot object
+const bot = new RedditMarketBot(params);
+
+// Start the bot using .listen()
+bot.listen(() => {
+  // Callback function, do what you want here once fetching is done
+  //  Use .cast() to cast audio notifications to a Chromecast device
+  bot.cast()
+})
+```
+
+This block of code is already on `app.ts` but I am writing it in here anyway as an example.
 
 ## Support
 
-Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing the `sub` in the code as long as the submission titles follow the following format:
+Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/r/mechmarket) but you can theoretically use this on other market subreddits by changing `subreddit` in `params` as long as the submission titles follow the following format:
 
 ```
 [US-NV] [H] Item that they have [W] Item that they want
