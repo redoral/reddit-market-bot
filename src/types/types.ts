@@ -5,6 +5,7 @@
  * @member link_flair_text - Flair of the submission
  * @member url - Complete URL of the submission
  * @member name - Unique ID of the submission
+ * @member created - UNIX timestamp of when the post was created
  */
 interface PostChildrenI {
   data: {
@@ -35,7 +36,6 @@ interface PostI {
  * @member pollRate - Number of times the bot will scan the subreddit in ms
  */
 interface ParamsI {
-  query: string;
   subreddit: string;
   postLimit: number;
   pollRate: number;
@@ -53,8 +53,24 @@ interface RedditMarketBotI {
   params: ParamsI;
   matches: number;
   latest: string;
-  listen: (callback: () => void) => void;
+  listen: (subreddit: string, callback: (posts: PostArrayI[]) => void) => void;
   cast: (numOfItems: number, sub: string) => void;
 }
 
-export { PostChildrenI, PostI, ParamsI, RedditMarketBotI };
+/**
+ * Interface for the array that gets returned in the callback under .listen()
+ * @member name - Unique ID of the submission
+ * @member title - Title of the submission
+ * @member url - Complete URL of the submission
+ * @member flair - Flair of the submission
+ * @member created - UNIX timestamp of when the post was created
+ */
+interface PostArrayI {
+  name?: string;
+  title?: string;
+  url?: string;
+  flair?: string;
+  created?: number;
+}
+
+export { PostChildrenI, PostI, ParamsI, RedditMarketBotI, PostArrayI };

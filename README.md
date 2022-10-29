@@ -32,7 +32,6 @@ npm install
 
 ```TypeScript
 interface ParamsI {
-  query: string; // The string to search for in each title
   subreddit: string; // The subreddit you want this bot to scan
   postLimit: number; // The maximum amount of posts to fetch on each call
   pollRate: number; // Number of times the bot will scan the subreddit in ms
@@ -41,21 +40,31 @@ interface ParamsI {
 
 5. Run the app using `npm start` or `npm run start`
 
-### Class Usage
+### Class Usage Example
 
 ```TypeScript
-// Create the bot object
+/**
+ * Initialize new bot object
+ */
 const bot = new RedditMarketBot(params);
 
-// Start the bot using .listen()
-bot.listen(() => {
-  // Callback function, do what you want here once fetching is done
-  //  Use .cast() to cast audio notifications to a Chromecast device
-  bot.cast()
-})
+/**
+ * Start the bot using .listen()
+ * Replace 'switches' with the item you're searching for
+ * Enable cast notifications using .cast()
+ *
+ * @param posts -  An array of posts based on the post limit
+ */
+bot.listen('switches', (posts: PostArrayI[]) => {
+  posts.forEach((item) => {
+    console.log(item.title);
+  });
+
+  bot.cast();
+});
 ```
 
-This block of code is already on `app.ts` but I am writing it in here anyway as an example.
+This block of code is already on `app.ts` but I am writing it in here anyway.
 
 ## Support
 

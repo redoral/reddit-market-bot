@@ -1,4 +1,4 @@
-import { ParamsI } from './types/types';
+import { ParamsI, PostArrayI } from './types/types';
 import RedditMarketBot from './lib/redditmarketbot';
 
 /**
@@ -8,8 +8,7 @@ import RedditMarketBot from './lib/redditmarketbot';
  * @beta
  */
 const params: ParamsI = {
-  query: '',
-  subreddit: 'hardwareswap',
+  subreddit: 'mechmarket',
   postLimit: 10,
   pollRate: 15000
 };
@@ -21,8 +20,15 @@ const bot = new RedditMarketBot(params);
 
 /**
  * Start the bot using .listen()
+ * Replace 'switches' with the item you're searching for
  * Enable cast notifications using .cast()
+ *
+ * @param posts - returns an array of posts based on the post limit
  */
-bot.listen(() => {
+bot.listen('switches', (posts: PostArrayI[]) => {
+  posts.forEach((item) => {
+    console.log(item.title);
+  });
+
   bot.cast();
 });
