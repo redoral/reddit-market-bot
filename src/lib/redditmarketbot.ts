@@ -30,7 +30,7 @@ class RedditMarketBot implements IRedditMarketBot {
    * @param query - The string to search for
    * @param callback - Callback function that is used to execute something after the bot is finished fetching and logging data
    */
-  async listen(query: string, callback: (post: IPosts[]) => void) {
+  async listen(query: string, callback: (posts: IPosts[]) => void) {
     while (true) {
       try {
         const data: IRedditData = await fetchPosts(this.params.subreddit, this.params.postLimit);
@@ -76,35 +76,38 @@ class RedditMarketBot implements IRedditMarketBot {
    * Gets the number of matches (if any), converts it into audio, then casts it into a Chromecast device
    * @remarks
    * Needs manual device selection
-   *
-   * @beta
    */
   cast() {
     const postLength = this.posts.length;
 
     if (postLength > 0) {
-      const msg: string =
-        postLength.toString() +
-        `${postLength === 1 ? ' match' : ' matches'} have been found on ${this.params.subreddit}`;
+      try {
+        const msg: string =
+          postLength.toString() +
+          `${postLength === 1 ? ' match' : ' matches'} have been found on ${this.params.subreddit}`;
 
-      const url: string = googleTTS.getAudioUrl(msg, {
-        lang: 'en',
-        slow: false,
-        host: 'https://translate.google.com'
-      });
-
-      const client = new ChromecastAPI();
-
-      client.on('device', (device: Device) => {
-        device.play(url, (err) => {
-          if (!err)
-            console.log('\x1b[2m%s\x1b[0m', `Playing notification on ${device.friendlyName} \n`);
+        const url: string = googleTTS.getAudioUrl(msg, {
+          lang: 'en',
+          slow: false,
+          host: 'https://translate.google.com'
         });
 
-        device.on('finished', () => {
-          device.close();
+        const client = new ChromecastAPI();
+
+        client.on('device', (device: Device) => {
+          device.play(url, (err) => {
+            if (!err) {
+              console.log('\x1b[2m%s\x1b[0m', `Playing notification on ${device.friendlyName} \n`);
+            }
+          });
+
+          device.on('finished', () => {
+            device.close();
+          });
         });
-      });
+      } catch (e: any) {
+        console.log(e);
+      }
     }
   }
 }

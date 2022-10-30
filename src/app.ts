@@ -4,8 +4,6 @@ import RedditMarketBot from './lib/redditmarketbot';
 /**
  * Customizable parameters to match your search query
  * @see {@link IParams} for the data types and field descriptions
- *
- * @beta
  */
 const params: IParams = {
   subreddit: 'mechmarket',
