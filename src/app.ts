@@ -1,15 +1,13 @@
-import { ParamsI } from './types/types';
+import { IParams, IPosts } from './types/types';
 import RedditMarketBot from './lib/redditmarketbot';
 
 /**
  * Customizable parameters to match your search query
- * @see {@link ParamsI} for the data types and field descriptions
- *
- * @beta
+ * @see {@link IParams} for the data types and field descriptions
  */
-const params: ParamsI = {
-  query: '',
-  subreddit: 'hardwareswap',
+const params: IParams = {
+  subreddit: 'mechmarket',
+  country: 'US',
   postLimit: 10,
   pollRate: 15000
 };
@@ -21,8 +19,14 @@ const bot = new RedditMarketBot(params);
 
 /**
  * Start the bot using .listen()
+ * Replace 'switches' with the item you're searching for
+ * Get the results using 'posts'
  * Enable cast notifications using .cast()
  */
-bot.listen(() => {
+bot.listen('switches', (posts: IPosts[]) => {
+  posts.forEach((item) => {
+    console.log(item.title);
+  });
+
   bot.cast();
 });

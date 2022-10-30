@@ -4,7 +4,6 @@ import axios from 'axios';
  * Prevents function from executing for a set amount of time
  * @param ms - The amount of time you want the function to timeout
  * @returns A promise
- * @beta
  */
 const sleep = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -16,7 +15,6 @@ const sleep = async (ms: number) => {
  * @param postLimit -  The maximum amount of posts to fetch on each call
  * @returns A JSON object
  *
- * @beta
  */
 const fetchPosts = async (subreddit: string, postLimit: number) => {
   try {
