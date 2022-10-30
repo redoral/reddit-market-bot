@@ -30,7 +30,6 @@ interface IRedditData {
 
 /**
  * Interface for params object that we pass into the RedditMarketBot class
- * @member query - The string to search for in each title
  * @member subreddit - The subreddit you want this bot to scan
  * @member postLimit - The maximum amount of posts to fetch on each call
  * @member pollRate - Number of times the bot will scan the subreddit in ms
@@ -59,6 +58,9 @@ interface IRedditMarketBot {
 
 /**
  * Interface for the array that gets returned in the callback under .listen()
+ * @remarks
+ * All the fields are optional so we can clear the array when needed
+ *
  * @member name - Unique ID of the submission
  * @member title - Title of the submission
  * @member url - Complete URL of the submission
