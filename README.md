@@ -33,6 +33,7 @@ npm install
 ```TypeScript
 interface IParams {
   subreddit: string; // The subreddit you want this bot to scan
+  country: string; // 2-digit country code that you are in
   postLimit: number; // The maximum amount of posts to fetch on each call
   pollRate: number; // Number of times the bot will scan the subreddit in ms
 };
@@ -51,11 +52,10 @@ const bot = new RedditMarketBot(params);
 /**
  * Start the bot using .listen()
  * Replace 'switches' with the item you're searching for
+ * Get the results using 'posts'
  * Enable cast notifications using .cast()
- *
- * @param posts -  An array of posts based on the post limit
  */
-bot.listen('switches', (posts: PostArrayI[]) => {
+bot.listen('switches', (posts: IPosts[]) => {
   posts.forEach((item) => {
     console.log(item.title);
   });

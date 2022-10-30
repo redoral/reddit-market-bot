@@ -45,7 +45,10 @@ class RedditMarketBot implements IRedditMarketBot {
         }
 
         sliced.forEach((post: IRedditDataChildren) => {
-          if (post.data.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+          if (
+            post.data.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 &&
+            post.data.title.toLowerCase().startsWith(`[${this.params.country.toLowerCase()}`)
+          ) {
             this.posts.push({
               created: post.data.created,
               title: post.data.title,

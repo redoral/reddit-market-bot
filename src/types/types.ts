@@ -31,11 +31,13 @@ interface IRedditData {
 /**
  * Interface for params object that we pass into the RedditMarketBot class
  * @member subreddit - The subreddit you want this bot to scan
+ * @member country - 2-digit country code that you are in
  * @member postLimit - The maximum amount of posts to fetch on each call
  * @member pollRate - Number of times the bot will scan the subreddit in ms
  */
 interface IParams {
   subreddit: string;
+  country: string;
   postLimit: number;
   pollRate: number;
 }

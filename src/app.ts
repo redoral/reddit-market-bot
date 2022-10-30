@@ -9,6 +9,7 @@ import RedditMarketBot from './lib/redditmarketbot';
  */
 const params: IParams = {
   subreddit: 'mechmarket',
+  country: 'US',
   postLimit: 10,
   pollRate: 15000
 };
@@ -21,9 +22,8 @@ const bot = new RedditMarketBot(params);
 /**
  * Start the bot using .listen()
  * Replace 'switches' with the item you're searching for
+ * Get the results using 'posts'
  * Enable cast notifications using .cast()
- *
- * @param posts - returns an array of posts based on the post limit
  */
 bot.listen('switches', (posts: IPosts[]) => {
   posts.forEach((item) => {
