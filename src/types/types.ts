@@ -44,15 +44,15 @@ interface IParams {
 /**
  * Interface for the main RedditMarketBot class
  * @member params - Customizable parameters to match the search query
- * @member matches - The subreddit you want this bot to scan
  * @member latest - The newest post on the subreddit
+ * @member posts - The array of posts that the bot returns in the callback
  * @member listen - Class method that scans newest submissions that matches the search query
  * @member cast - Class method that casts an audio notification to a Chromecast device
  */
 interface IRedditMarketBot {
   params: IParams;
-  matches: number;
   latest: string;
+  posts: IPosts[];
   listen: (subreddit: string, callback: (posts: IPosts[]) => void) => void;
   cast: (numOfItems: number, sub: string) => void;
 }

@@ -15,13 +15,13 @@ import Device from 'chromecast-api/lib/device';
  */
 class RedditMarketBot implements IRedditMarketBot {
   params: IParams;
-  matches: number;
   latest: string;
+  posts: IPosts[];
 
-  constructor(params: IParams, matches: number = 0, latest: string = '') {
+  constructor(params: IParams, latest: string = '', posts: IPosts[] = []) {
     this.params = params;
-    this.matches = matches;
     this.latest = latest;
+    this.posts = posts;
   }
 
   /**
@@ -35,7 +35,6 @@ class RedditMarketBot implements IRedditMarketBot {
       try {
         const data: IRedditData = await fetchPosts(this.params.subreddit, this.params.postLimit);
         let sliced: IRedditDataChildren[] = data.data.children;
-        let postArray: IPosts[] = [];
 
         if (this.latest) {
           const latestIndex = data.data.children.findIndex((post: IRedditDataChildren) => {
@@ -47,9 +46,7 @@ class RedditMarketBot implements IRedditMarketBot {
 
         sliced.forEach((post: IRedditDataChildren) => {
           if (post.data.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
-            this.matches++;
-
-            postArray.push({
+            this.posts.push({
               created: post.data.created,
               title: post.data.title,
               flair: post.data.link_flair_text,
@@ -59,11 +56,10 @@ class RedditMarketBot implements IRedditMarketBot {
           }
         });
 
-        callback(postArray);
+        callback(this.posts);
 
-        this.matches = 0;
         this.latest = data.data.children[0].data.name;
-        postArray = [];
+        this.posts = [];
 
         await sleep(this.params.pollRate);
       } catch (e: any) {
@@ -81,10 +77,12 @@ class RedditMarketBot implements IRedditMarketBot {
    * @beta
    */
   cast() {
-    if (this.matches > 0) {
+    const postLength = this.posts.length;
+
+    if (postLength > 0) {
       const msg: string =
-        this.matches.toString() +
-        `${this.matches === 1 ? ' match' : ' matches'} have been found on ${this.params.subreddit}`;
+        postLength.toString() +
+        `${postLength === 1 ? ' match' : ' matches'} have been found on ${this.params.subreddit}`;
 
       const url: string = googleTTS.getAudioUrl(msg, {
         lang: 'en',
