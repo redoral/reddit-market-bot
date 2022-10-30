@@ -7,7 +7,7 @@
  * @member name - Unique ID of the submission
  * @member created - UNIX timestamp of when the post was created
  */
-interface PostChildrenI {
+interface IRedditDataChildren {
   data: {
     title: string;
     link_flair_text: string;
@@ -22,9 +22,9 @@ interface PostChildrenI {
  * @member data - The top-most level 'data' key we get when we are starting from res.data when fetching
  * @member children - The actual array of submissions from the response
  */
-interface PostI {
+interface IRedditData {
   data: {
-    children: PostChildrenI[];
+    children: IRedditDataChildren[];
   };
 }
 
@@ -35,7 +35,7 @@ interface PostI {
  * @member postLimit - The maximum amount of posts to fetch on each call
  * @member pollRate - Number of times the bot will scan the subreddit in ms
  */
-interface ParamsI {
+interface IParams {
   subreddit: string;
   postLimit: number;
   pollRate: number;
@@ -49,11 +49,11 @@ interface ParamsI {
  * @member listen - Class method that scans newest submissions that matches the search query
  * @member cast - Class method that casts an audio notification to a Chromecast device
  */
-interface RedditMarketBotI {
-  params: ParamsI;
+interface IRedditMarketBot {
+  params: IParams;
   matches: number;
   latest: string;
-  listen: (subreddit: string, callback: (posts: PostArrayI[]) => void) => void;
+  listen: (subreddit: string, callback: (posts: IPosts[]) => void) => void;
   cast: (numOfItems: number, sub: string) => void;
 }
 
@@ -65,7 +65,7 @@ interface RedditMarketBotI {
  * @member flair - Flair of the submission
  * @member created - UNIX timestamp of when the post was created
  */
-interface PostArrayI {
+interface IPosts {
   name?: string;
   title?: string;
   url?: string;
@@ -73,4 +73,4 @@ interface PostArrayI {
   created?: number;
 }
 
-export { PostChildrenI, PostI, ParamsI, RedditMarketBotI, PostArrayI };
+export { IParams, IPosts, IRedditData, IRedditDataChildren, IRedditMarketBot };

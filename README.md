@@ -31,7 +31,7 @@ npm install
 4. Update `params` on `index.ts` to your liking
 
 ```TypeScript
-interface ParamsI {
+interface IParams {
   subreddit: string; // The subreddit you want this bot to scan
   postLimit: number; // The maximum amount of posts to fetch on each call
   pollRate: number; // Number of times the bot will scan the subreddit in ms

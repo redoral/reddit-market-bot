@@ -1,13 +1,13 @@
-import { ParamsI, PostArrayI } from './types/types';
+import { IParams, IPosts } from './types/types';
 import RedditMarketBot from './lib/redditmarketbot';
 
 /**
  * Customizable parameters to match your search query
- * @see {@link ParamsI} for the data types and field descriptions
+ * @see {@link IParams} for the data types and field descriptions
  *
  * @beta
  */
-const params: ParamsI = {
+const params: IParams = {
   subreddit: 'mechmarket',
   postLimit: 10,
   pollRate: 15000
@@ -25,7 +25,7 @@ const bot = new RedditMarketBot(params);
  *
  * @param posts - returns an array of posts based on the post limit
  */
-bot.listen('switches', (posts: PostArrayI[]) => {
+bot.listen('switches', (posts: IPosts[]) => {
   posts.forEach((item) => {
     console.log(item.title);
   });

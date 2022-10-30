@@ -1,5 +1,11 @@
 import { sleep, fetchPosts } from './actions';
-import { PostI, PostChildrenI, ParamsI, RedditMarketBotI, PostArrayI } from '../types/types';
+import {
+  IParams,
+  IPosts,
+  IRedditData,
+  IRedditDataChildren,
+  IRedditMarketBot
+} from '../types/types';
 import * as googleTTS from 'google-tts-api';
 import ChromecastAPI from 'chromecast-api';
 import Device from 'chromecast-api/lib/device';
@@ -7,12 +13,12 @@ import Device from 'chromecast-api/lib/device';
 /**
  * The main class for the bot
  */
-class RedditMarketBot implements RedditMarketBotI {
-  params: ParamsI;
+class RedditMarketBot implements IRedditMarketBot {
+  params: IParams;
   matches: number;
   latest: string;
 
-  constructor(params: ParamsI, matches: number = 0, latest: string = '') {
+  constructor(params: IParams, matches: number = 0, latest: string = '') {
     this.params = params;
     this.matches = matches;
     this.latest = latest;
@@ -24,22 +30,22 @@ class RedditMarketBot implements RedditMarketBotI {
    * @param query - The string to search for
    * @param callback - Callback function that is used to execute something after the bot is finished fetching and logging data
    */
-  async listen(query: string, callback: (post: PostArrayI[]) => void) {
+  async listen(query: string, callback: (post: IPosts[]) => void) {
     while (true) {
       try {
-        const data: PostI = await fetchPosts(this.params.subreddit, this.params.postLimit);
-        let sliced: PostChildrenI[] = data.data.children;
-        let postArray: PostArrayI[] = [];
+        const data: IRedditData = await fetchPosts(this.params.subreddit, this.params.postLimit);
+        let sliced: IRedditDataChildren[] = data.data.children;
+        let postArray: IPosts[] = [];
 
         if (this.latest) {
-          const latestIndex = data.data.children.findIndex((post: PostChildrenI) => {
+          const latestIndex = data.data.children.findIndex((post: IRedditDataChildren) => {
             return post.data.name === this.latest;
           });
 
           sliced = data.data.children.slice(0, latestIndex);
         }
 
-        sliced.forEach((post: PostChildrenI) => {
+        sliced.forEach((post: IRedditDataChildren) => {
           if (post.data.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
             this.matches++;
 
