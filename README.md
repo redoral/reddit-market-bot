@@ -1,11 +1,13 @@
-# [WIP] Reddit Market Bot
+# [DEPRECATED] Reddit Market Bot
+
+**PROJECT IS NOW DEPRECATED DUE TO REDDIT'S API CHANGES**
 
 ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white) ![Chromecast](https://img.shields.io/badge/Chromecast-999999.svg?style=for-the-badge&logo=Chromecast&logoColor=white)
 
 The Reddit Market Bot is a simple bot that listens to new posts on a specified market subreddit, logs the new posts that matches the search query to the console, and notifies via audio using a Chromecast device (ideally a Google Home speaker).
 
-This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket). Still working on this project despite finding a board!
+This was made for personal use when I was looking for new boards on [/r/mechmarket](https://reddit.com/r/mechmarket).
 
 Made with:
 
@@ -75,12 +77,3 @@ Now, this app was designed to be used on [/r/mechmarket](https://www.reddit.com/
 ```
 
 With `[US-NV]` being 2-letter formats of `[COUNTRY-STATE]` or `[COUNTRY-PROVINCE]`.
-
-## Future Plans
-
-Everything you see listed here is just something that I eventually want to do but is unlikely to happen, but you never know! Anyway, I'm thinking of doing the following:
-
-- Device selection for casting to Chromecast device.
-- Support for other market subreddits.
-- Convert project into an API using ExpressJS.
-- Create a mobile frontend, with push notifications, using React Native.
