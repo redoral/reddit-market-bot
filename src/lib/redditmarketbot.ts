@@ -33,18 +33,18 @@ class RedditMarketBot implements IRedditMarketBot {
   async listen(query: string, callback: (posts: IPosts[]) => void) {
     while (true) {
       try {
-        const data: IRedditData = await fetchPosts(this.params.subreddit, this.params.postLimit);
-        let sliced: IRedditDataChildren[] = data.data.children;
+        const res: IRedditData = await fetchPosts(this.params.subreddit, this.params.postLimit);
+        let data: IRedditDataChildren[] = res.data.children;
 
         if (this.latest) {
-          const latestIndex = data.data.children.findIndex((post: IRedditDataChildren) => {
+          const latestIndex = res.data.children.findIndex((post: IRedditDataChildren) => {
             return post.data.name === this.latest;
           });
 
-          sliced = data.data.children.slice(0, latestIndex);
+          data = res.data.children.slice(0, latestIndex);
         }
 
-        sliced.forEach((post: IRedditDataChildren) => {
+        data.forEach((post: IRedditDataChildren) => {
           if (
             post.data.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 &&
             post.data.title.toLowerCase().startsWith(`[${this.params.country.toLowerCase()}`)
@@ -61,12 +61,12 @@ class RedditMarketBot implements IRedditMarketBot {
 
         callback(this.posts);
 
-        this.latest = data.data.children[0].data.name;
+        this.latest = res.data.children[0].data.name;
         this.posts = [];
 
         await sleep(this.params.pollRate);
       } catch (e: any) {
-        console.log(e);
+        console.log(e.msg);
         break;
       }
     }

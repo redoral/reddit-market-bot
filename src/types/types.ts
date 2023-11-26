@@ -25,6 +25,7 @@ interface IRedditDataChildren {
 interface IRedditData {
   data: {
     children: IRedditDataChildren[];
+    error?: string;
   };
 }
 
